@@ -1,0 +1,18 @@
+R
+1) Map a discrete variable to color, size, alpha, and shape. Then map a continuous variable to each.
+ Does ggplot2 behave differently for discrete vs. continuous variables?
+
+The discrete variables in mpg are: manufacturer, model, trans, drv, fl, class
+The continuous variables in mpg are: displ, year, cyl, cty, hwy
+
+Shape - only takes discrete - up to 6
+Size - not advised for discrete
+
+YES, ggplot2 differentiates between discrete/continuous in some scenarios
+
+
+2) Map the same variable to multiple aesthetics in the same plot. Does it work? How many legends does ggplot2 create?
+- Works, but not very helpful? Ex: color = model, alpha = model. creates one combined legend, with colors more transparent
+ 
+3) Attempt to set an aesthetic to something other than a variable name, like displ < 5. What happens?
+Graph is broken down into true/false sections
