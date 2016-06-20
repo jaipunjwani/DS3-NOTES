@@ -1,4 +1,6 @@
-R
+R - http://r4ds.had.co.nz/data-visualisation.html
+
+3.2 exercises
 1) Map a discrete variable to color, size, alpha, and shape. Then map a continuous variable to each.
  Does ggplot2 behave differently for discrete vs. continuous variables?
 
@@ -16,3 +18,43 @@ YES, ggplot2 differentiates between discrete/continuous in some scenarios
  
 3) Attempt to set an aesthetic to something other than a variable name, like displ < 5. What happens?
 Graph is broken down into true/false sections
+
+3.4.1 exercises
+1) What would this graph look like?
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) + 
+  geom_point() + 
+  geom_smooth()
+
+graph of display vs. hwy; data points would be differentiated by class (via color); there would be two geom_graphs overlayed on top of each other - one with the individual points, 
+one connected with lines and gray areas to show uncertainty
+
+2) Will these two graphs look different?
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(data = mpg) + 
+  geom_smooth(data = mpg)
+
+no, they specify the same exact thing
+
+
+DPLYR:
+
+piping operator: %>%
+
+Verbs:
+1) Filter: 
+	allows you to subset observations
+	input: N rows 
+	output: variable number of rows that match given condition 
+	Note: {happens per group}
+
+
+- arrange: order rows sorted by given columns
+- mutate: input N rows, output N rows
+- select: extract a subset of columns
+- summarize: input N rows, output 1 row {per group }
+- group_by
+- ungroup: remove groupings {BEST PRACTICE: UNGROUP WHEN DONE}
