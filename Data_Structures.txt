@@ -1,0 +1,81 @@
+1) Computational Tractability
+2) BIG-OH Notation
+3) Survey of running time
+	- data structures
+	- algorithms
+________________________________________________________________________________________________________
+	cn^d polynomial time (c, d >0)
+	n linear time
+	log n
+	n log n
+	<n sublinear time: http://people.csail.mit.edu/ronitt/sublinear.html
+	
+________________________________________________________________________________________________________
+Types of Analysis:
+1: Worst-case
+	ex: for mergesort/heapsort : 2nlog2n
+2: Probabilistic
+	expected runtime of a randomized algorithm: 
+	
+3: Amortized
+	worst case time of n operations
+	
+	ex: given a stack and 2 operations: push(), popall()
+	say we do n pushes, and 1 popall. Our growth is O(2n) -> Amortized time PER OPERATION (/n) is ~2
+4: Average Case - expected runtime of a random input
+	quicksort - worst case: n^2 ; average : n log n
+________________________________________________________________________________________________________	
+
+BIG-OH (ub)
+T= time; UB/LB = upper/lower bound
+T(n) = 32n^2 + 17n +1
+T(n) is O(f(n)) is T.E. c>0, and No >=0 S.T. T(n) <= cf(n) for all n >=No
+
+T(n) <= 50n^2 , n>1 (note c=50)
+T(n) is O(n^2) (it's an element of)
+alternative: lim n -> infin of T(n)/n^2 = 32
+
+
+BIG-OMEGA (lb)
+T(n) is Omega(g(n)) is T.E. c>0, and No >=0 S.T. T(n) > cg(n) for all n >=No
+
+T(n) is Omega(n^2) because T(n) > 32n^2 > n^2
+
+Big-THETA
+T(n) is O(n^2)
+T(n) is Omega(n^2)
+T(n) is THETA(n^2)
+
+1) T(n) = a0 + a1n^1 + a2n^2 + ... + adn^d = THETA(n^d)
+2) THETA(log(b1)n) = THETA(log(b2)n) = THETA(log n)
+3) For every d >0, log n is O(n^d)
+4) For every r >1, d>0, n^d is O(r^n)
+
+________________________________________________________________________________________________________
+
+Survey of running times:
+1) O(n) - linear time	
+ex: for loop to compute max of n items
+c.ex: given a sorted array, find max. one operation - constant time
+
+2)O(nlogn) - 'linear-rithmic' time
+DIVIDE AND CONQUER
+ex: merge sort (break list into small pieces, sort the pieces, then repeat recursively)
+
+3) O(n^2) - quadratic time
+ex: nested for loop of double-dimension array
+
+4) O(n^3) - cubic time
+
+5) O(log n)
+ex: binary search
+
+
+Trees
+linked-list is a tree with one node
+Self-balancing trees: https://www.cs.auckland.ac.nz/software/AlgAnim/red_black.html
+Challenge: Removing item from tree
+
+Hash Tables
+issue: Hash n items into a table of size m; n = O(m)
+

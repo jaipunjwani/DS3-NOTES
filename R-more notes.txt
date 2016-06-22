@@ -1,0 +1,57 @@
+standard deviation question?
+
+mutate(hour = hour(starttime) %>% group_by(ymd, hour) %>% summarize (num_trips = n()) %>% group_by(hour) %>% summarize(mean_trips =mean(num_trips), sd_trips = sd(num_trips))
+
+explanation:
+
+group_by(ymd, hour) %>% summarize(num_trips = n()): table { day  hour   #trips }
+							     1    1	   17
+							     2    1	   20
+							     2    4	   16
+
+group_by(hour): takes previous table and groups it by hour (so first two columns with hour=1 will group)
+
+
+summarize(mean_trips =mean(num_trips) will add mean_trips to the group by hours
+
+
+geoms to checkout/use: geom_point, errorbar, pointrange, ribbon
+
+errorbar(ymin = mean - sd, ymax = mean + sd)
+
+
+ggplot(plot_data, aes(x = hour, y = mean))  facet_wrap (~day_of_week)
+
+ifelse - understands vector comparisons, whereas regular if/else does not 
+Vectorize (single_function) #allows function to apply computations to vector rather than single element
+
+group_by(year) - groups BINS by year
+
+ex: 
+
+year gender numtrips
+1900 M      5
+1900 F      8
+
+1901 M      3
+
+Note that 1900 is one group/bin, but is split into two rows)
+
+
+%>% spread(gender, numtrips) {key, value}
+
+year M F U
+1900 5 8 NA 
+
+
+trips %>% group_by(start_station_id, end_station_id) %>% summarize(col3 = sum(start_station_id,end_station_id)) 
+#creates groups of all combinations of start-end station ids, and accumulates the sum of EACH GROUP in a column
+# ex: for startid = 72 and endid= 72 group, sum != 144, but 144 * 576, because there are 576 such trips in this group
+# this shows what group_by does..
+
+trips %>% summarize(col3 = sum(start_station_id,end_station_id)) 
+
+trips %>% filter(start_station_id == 72 & end_station_id == 72)
+trips %>% group_by(start_station_id, end_station_id) %>% filter(start_station_id == 72 & end_station_id == 72)
+
+	

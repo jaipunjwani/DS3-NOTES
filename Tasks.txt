@@ -1,0 +1,4 @@
+Week 1
+- Finish average question with bash
+- 30 minutes of Awk, do average question with it
+- finish GGplot and dplyr tutorials (chapter 3-4, sample code, exercises)
