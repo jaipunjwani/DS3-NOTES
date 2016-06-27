@@ -102,3 +102,105 @@ TSS - total variation in outcome  (total sum of squares) : summation(y i - mean(
 R-Squared: 1 - RSS/TSS : fraction of the variation in the outcome variable captured by the model
 	- When R-squared is close to 1, the model is good
 	- this means that RSS is relatively small compared to TSS
+
+________________________________________________________________________________________________________________
+
+6/22
+Feature types:
+Binary features - 0 or 1 (ex: male/female represented by 0,1)
+Continuous Features: any real value (ex: price)
+Categorical features: Can take one of N values (ex: days of week -> 1-7)
+
+CAVEAT: say week of year -> 1:52 ; week 52 and week 1 are not necessarily far apart (dec. 2015 vs. jan. 2016)
+
+Graphs with binary fetaures usually have a constant shift that applies when the binary is turned on (1). Thus, we have two lines for each group in our category, and are able to distinguish 
+through the different Y-intercepts. 
+
+Binary graphs - will have same slope, diff intercepts
+Binary graphs + interaction terms - will have diff slope and diff intercepts
+
+R notation: ':' will just put interaction term ; '*' will add in interaction terms and each variable individually
+
+Interaction Term - multiplying two features by each other -> usually in the form of: {continuous feature}*{binary feature}
+
+Scenario: Say we have two raw features, A and B. How amny models can we make?
+
+Wthout interactions, we can make: none, A, B, A+B {4}
+W/ interactions, we can make: {4}, A*B, A+B+A*B, A+A*B, B+A*B {8}
+
+with p features, we have 2^(p+1) possible models
+
+Interpreting regression output
+t-stats evaluates features one by one.
+t-stats evaluate the hypothesis that the coefficient is zero (null-hypothesis)
+p-value : P(observing >=coeff, if coeff =0)
+t-stats: 1.96 or less means that coeff is close to zero
+
+
+Parametric vs. non-parametric Regression
+Y = f(x) + e
+Parametric: f defined by a model we write down with parameters that we have to estimate (alpha, beta, etc)
+non-parametric: we directly fit the data
+
+
+
+
+Local averaging - define  a neighborhood region at each of the points, and find the average in that neighborhood
+
+Kernel - a method of assigning higher weight to the points closer to the target point I am tyring to fit
+Bandwidth - how wide our kernal (window) is
+	trend: larger bandwidth, smoother funcitons because there is more data used to make the averages, and is closer to the overall average with less partitions
+	Bandwidth is AKA smoothing parameter
+Alternative to bandwidth: K-nearest neighbors
+
+
+When do we use Parametric or Non-Parametric
+- relatively small # of features - non-parametric makes sense because it is feasible to directly fit data
+- with many features, (and thus many dimensions), parametric models using interaction terms and polynomials are preferred over non-parametric 
+
+
+
+______________________________________________________________________________________________________________________________________________________
+
+6/23
+
+Regularization, Prediction, and Pricing
+Given a set of data over 1 year - We might use 10 months to train our model, and 2 months to test our model
+
+Cross-validation method: 5 runs, WE break up our data into 5 parts, and use each part as the testing model, and use that model to predict the remaining 80%
+
+glm() - geeralized linear model ; cv.glm() - will do cross-validation
+cv.glm assigns random number to data, and sorts it
+
+time-dimension matters: say we have a year's worth of data of oil supply. we want to predict oil prices for say December. We need to keep our data IN ORDER, with respect to time.
+IF time-dimension did not matter, we would want to randomize our data (in this case we use cv.glm to randomize)
+
+We have to specify a class of models (ex: local averaging) in order to use the validation set methodology
+
+The variable selection problem: Given p features, I have 2^p models
+Solution 1: Compute best model with 1 features, then with 2 features...till p features (drawback: not usually computationally feasible)
+Solution 2: Forward stepwise selection: Start with 0 features, add in feature that improves model the most, then lock in that model and in the next step add in the next feature that improves the model
+		- the best model yields the highest R^2, or smallest RSS relative to TSS
+		- requires fitting approximately p^2/2 models (much smaller than 2^p models)
+Solution 3: Backward stepwise selection
+		- start with full model and find the LEAST useful predictor, and repeat each round
+
+Regularization - use all then predictors and throw out the less useful ones in one step
+
+LIMIT of OLS (ordinary least squares) - it tends to overfit data: if we supply OLS many x variables, it tries to fit the data the best by assigning BETA values (non-zero when it minimizes the MSE, and zero when the variable has NO effect)
+	- when we give many x variables, it may reduce MSE but might not make a good model. 
+	- OLS with more variables (x) may OVERFIT data and thus would not usually yield a good predictor model
+
+Lasso Regression
+ - LASSO is a class of models
+ - method to reduce variance in our model by having high BETA's 
+ - imposes penalty for having high B's (basically checks whether or not it really has an impact)
+ - penalty term (LAMBDA) determines how we penalize BETA
+ - as we increase penalty parameter, we force more coefficients to zero
+
+RIDGE Regression
+ - differs from LASSO in that the penalty function squares the coefficients 
+ - this penalizes small coefficients (<1) because when squared, they become closer to zero
+
+R Package: glmnet
+- provides ridge() and lasso() functions which we can use on glm 

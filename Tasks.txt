@@ -2,3 +2,20 @@ Week 1
 - Finish average question with bash
 - 30 minutes of Awk, do average question with it
 - finish GGplot and dplyr tutorials (chapter 3-4, sample code, exercises)
+- finish plot_trips.R
+- review spread/gather
+
+
+Week 2
+Reading:
+- finish reading chapter 8 on spread/gather
+- Finish skimming chapter 3
+- read chapter 2.1-2.2.2
+- finish coin flipping
+
+- finish orange juice day 2 #5
+- finish orange juice day 3 exercises
+- finish regex exercises (grep recursive search)
+
+
+- Review powerpoint
