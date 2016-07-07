@@ -196,7 +196,7 @@ Lasso Regression
  - method to reduce variance in our model by having high BETA's 
  - imposes penalty for having high B's (basically checks whether or not it really has an impact)
  - penalty term (LAMBDA) determines how we penalize BETA
- - as we increase penalty parameter, we force more coefficients to zero
+ - as we increase penalty parameter, we force more coefficients to zero; as LAMBDA approaches 0, our model fits to training data as well as possible
 
 RIDGE Regression
  - differs from LASSO in that the penalty function squares the coefficients 
@@ -204,3 +204,6 @@ RIDGE Regression
 
 R Package: glmnet
 - provides ridge() and lasso() functions which we can use on glm 
+
+
+
